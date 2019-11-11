@@ -1,9 +1,9 @@
 # Prometheus HDFS FSImage Exporter
 
-![Ansible Role](https://img.shields.io/ansible/role/44232?style=flat-square)
+![Ansible Role](https://img.shields.io/ansible/role/44536?style=flat-square)
 ![Molecule Test Status](https://img.shields.io/travis/rgibert/ansible-role-prometheus-hdfs-fsimage-exporter?label=molecule&style=flat-square)
-![Ansible Quality Score](https://img.shields.io/ansible/quality/44232?style=flat-square)
-![Ansible Role](https://img.shields.io/ansible/role/d/44232?label=downloads&style=flat-square)
+![Ansible Quality Score](https://img.shields.io/ansible/quality/44536?style=flat-square)
+![Ansible Role](https://img.shields.io/ansible/role/d/44536?label=downloads&style=flat-square)
 
 ## Description
 
