@@ -1,0 +1,32 @@
+---
+- block:
+
+    - block:
+
+        - name: create config path
+          file:
+            state: directory
+            path: "{{ prometheus_hdfs_fsimage_exporter_conf_path }}"
+            owner: "{{ single_binary_service_user }}"
+            group: "{{ single_binary_service_group }}"
+            mode: "u=rwX,g=rX,o=rX"
+
+        - name: copy config file
+          template:
+            src: "templates/prometheus_hdfs_fsimage_exporter.yml.j2"
+            dest: "{{ prometheus_hdfs_fsimage_exporter_conf_path }}/{{ prometheus_hdfs_fsimage_exporter_conf_file }}"
+            owner: "{{ single_binary_service_user }}"
+            group: "{{ single_binary_service_group }}"
+            mode: "u=rw,g=r,o=r"
+          notify:
+            - restart service
+
+      become: true
+      become_user: root
+
+    - name: call single_binary_service role
+      include_role:
+        name: rgibert.single_binary_service
+
+  tags:
+    - prometheus_hdfs_fsimage_exporter
