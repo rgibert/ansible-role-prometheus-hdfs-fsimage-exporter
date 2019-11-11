@@ -1,0 +1,36 @@
+---
+prometheus_hdfs_fsimage_exporter_base_url: "https://repo.maven.apache.org/maven2"
+single_binary_service_checksum: "sha1:766847292cce8b1e2bd3833b4b934b7626b2a1cd"
+single_binary_service_dl_url: "{{ prometheus_hdfs_fsimage_exporter_base_url }}/de/m3y/prometheus/exporter/fsimage/fsimage-exporter/{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar"
+single_binary_service_group: prometheus
+single_binary_service_is_archive: false
+single_binary_service_name: prometheus_hdfs_fsimage_exporter
+single_binary_service_start_cmd: "java -Xmx{{ prometheus_hdfs_fsimage_exporter_max_heap }} -dsa -server -XX:+UseG1GC -jar /usr/local/share/{{ single_binary_service_name }}-{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar {{ prometheus_hdfs_fsimage_exporter_ip }} {{ prometheus_hdfs_fsimage_exporter_port }} {{ prometheus_hdfs_fsimage_exporter_conf_path }}/{{ prometheus_hdfs_fsimage_exporter_conf_file }}"
+single_binary_service_stop_cmd: "/usr/bin/ps auwwx | grep /usr/local/share/{{ single_binary_service_name }}-{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar | grep -v grep | awk '{print $2}' | xargs kill -9"
+single_binary_service_user: prometheus
+single_binary_service_version: 1.3
+
+prometheus_hdfs_fsimage_exporter_max_heap: 1024m
+prometheus_hdfs_fsimage_exporter_ip: 0.0.0.0
+prometheus_hdfs_fsimage_exporter_port: 9101
+prometheus_hdfs_fsimage_exporter_conf_path: /etc/prometheus
+prometheus_hdfs_fsimage_exporter_conf_file: hdfs_fsimage_exporter.yml
+
+prometheus_hdfs_fsimage_exporter_fsimage_path: /tmp/hadoop-hdfs/dfs/name
+prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_group_stats: true
+prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_user_stats: false
+prometheus_hdfs_fsimage_exporter_paths:
+  - /tmp
+  - /user
+  - /app/hive/warehouse
+prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_path_stats: true
+prometheus_hdfs_fsimage_exporter_path_sets:
+  - setname: systemset
+    paths:
+      - /tmp
+      - /app/hive/warehouse
+  - setname: userset
+    paths:
+      - /user
+prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_path_set_stats: true
+prometheus_hdfs_fsimage_exporter_file_size_buckets: "['0','1MiB', '32MiB', '64MiB', '128MiB', '1GiB', '10GiB']"

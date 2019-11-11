@@ -1,0 +1,36 @@
+# Path where HDFS NameNode stores the fsimage files
+# See https://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml#dfs.namenode.name.dir
+fsImagePath : '{{ prometheus_hdfs_fsimage_exporter_fsimage_path }}'
+# Skip file size distribution for group based stats
+skipFileDistributionForGroupStats : {{ prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_group_stats }}
+# Skip file size distribution for user based stats
+# Good for figuring out who has too many small files.
+skipFileDistributionForUserStats : {{ prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_user_stats }}
+
+# Compute per path stats
+# Supports regex matching for direct child directories
+paths:
+{% for exporter_path in prometheus_hdfs_fsimage_exporter_paths %}
+  - '{{ exporter_path }}'
+{% endfor %}
+# Skip file size distribution for path based stats
+skipFileDistributionForPathStats : {{ prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_path_stats }}
+
+# Path sets are grouped paths by an identifier
+pathSets:
+{% for pathset in prometheus_hdfs_fsimage_exporter_path_sets %}
+  '{{ pathset.setname }}' : [
+  {% for pathset_path in pathset.paths %}
+  {% if not loop.last %}
+  '{{ pathset_path }}',
+  {% else %}
+  '{{ pathset_path }}'
+  {% endif %}
+  {% endfor %}
+  ]
+{% endfor %}
+
+# Skip file size distribution for path sets based stats
+skipFileDistributionForPathSetStats : {{ prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_path_set_stats }}
+# Configure file size distribution buckets, supporting IEC units of KiB, MiB, GiB, TiB, PiB
+fileSizeDistributionBuckets: {{ prometheus_hdfs_fsimage_exporter_file_size_buckets }}
