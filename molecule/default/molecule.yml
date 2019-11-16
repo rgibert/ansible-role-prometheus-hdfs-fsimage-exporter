@@ -17,6 +17,7 @@ platforms:
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - fsimage_0001:/fsimage/fsimage_0001
 provisioner:
   name: ansible
   lint:
