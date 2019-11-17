@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+case ${1} in
+start)
+  java -Xmx{{ prometheus_hdfs_fsimage_exporter_max_heap }} -dsa -server -XX:+UseG1GC -jar /usr/local/share/{{ single_binary_service_name }}-{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar {{ prometheus_hdfs_fsimage_exporter_ip }} {{ prometheus_hdfs_fsimage_exporter_port }} {{ prometheus_hdfs_fsimage_exporter_conf_path }}/{{ prometheus_hdfs_fsimage_exporter_conf_file }}
+  ;;
+stop)
+  /usr/bin/ps auwwx | grep /usr/local/share/{{ single_binary_service_name }}-{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar | grep -v grep | awk '{print $2}' | xargs kill -9
+  ;;
+*)
+  echo "invalid argument, should be either start or stop
+  exit 1
+  ;;
+esac

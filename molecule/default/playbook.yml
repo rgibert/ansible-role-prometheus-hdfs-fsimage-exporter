@@ -4,3 +4,4 @@
     - all
   roles:
     - role: rgibert.prometheus_hdfs_fsimage_exporter
+      prometheus_hdfs_fsimage_exporter_fsimage_path: /fsimage
