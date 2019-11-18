@@ -23,4 +23,6 @@ galaxy_info:
     - prometheushdfsfsimagexporter
 dependencies:
   - role: rgibert.single_binary_service
-    version: 1.1.1
+    version: 1.1.2
+    tags:
+      - prometheus_hdfs_fsimage_exporter
