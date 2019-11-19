@@ -1,5 +1,5 @@
 ---
 - name: restart service
   systemd:
-    name: "{{ single_binary_service_name }}"
+    name: prometheus_hdfs_fsimage_exporter
     state: restarted

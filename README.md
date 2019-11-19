@@ -18,14 +18,25 @@ Installs a Prometheus exporter for HDFS FSImages
 | Variable | Description |
 |----------|-------------|
 | prometheus_hdfs_fsimage_exporter_base_url | Base URL for other variables |
-| single_binary_service_checksum | SHA256 URL for tarball |
-| single_binary_service_dl_url | Tarball download URL |
-| single_binary_service_group | Default group for the user to run as |
-| single_binary_service_name | Service name |
-| single_binary_service_start_cmd | Start command used by service file |
-| single_binary_service_stop_cmd | Stop command used by service file |
-| single_binary_service_user | User to run the exporter as |
-| single_binary_service_version | Version to install |
+| prometheus_hdfs_fsimage_exporter_checksum | SHA256 URL for tarball |
+| prometheus_hdfs_fsimage_exporter_dl_url | Tarball download URL |
+| prometheus_hdfs_fsimage_exporter_group | Default group for the user to run as |
+| prometheus_hdfs_fsimage_exporter_user | User to run the exporter as |
+| prometheus_hdfs_fsimage_exporter_version | Version to install |
+| prometheus_hdfs_fsimage_exporter_max_heap | Max heap allocated to the exporter |
+| prometheus_hdfs_fsimage_exporter_ip | IP to listen on |
+| prometheus_hdfs_fsimage_exporter_port | Port to listen on |
+| prometheus_hdfs_fsimage_exporter_conf_path | Path to the config file |
+| prometheus_hdfs_fsimage_exporter_conf_file | Config file |
+| prometheus_hdfs_fsimage_exporter_fsimage_path | Path the HDFS fsimage |
+| prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_group_stats | Skip file size distribution for group based stats |
+| prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_user_stats | Skip file size distribution for user based stats |
+| prometheus_hdfs_fsimage_exporter_paths | Paths to track stats for |
+| prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_path_stats | Skip file size distribution for path based stats |
+| prometheus_hdfs_fsimage_exporter_path_sets | Sets for grouping paths |
+| prometheus_hdfs_fsimage_exporter_skip_file_distrib_for_path_set_stats | Skip file size distribution for path set based stats |
+| prometheus_hdfs_fsimage_exporter_file_size_buckets |  |
+
 
 ## Dependencies
 
@@ -38,7 +49,7 @@ Installs a Prometheus exporter for HDFS FSImages
     - servers
   roles:
     - role: rgibert.hdfs_fsimage_exporter
-      single_binary_service_version: 1.3
+      prometheus_hdfs_fsimage_exporter_version: 1.3
 ```
 
 ## License
