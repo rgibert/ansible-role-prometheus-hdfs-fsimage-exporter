@@ -26,6 +26,18 @@ provisioner:
         - 204
 scenario:
   name: default
+  test_sequence:
+    - lint
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - cleanup
+    - destroy
 verifier:
   name: testinfra
   lint:
