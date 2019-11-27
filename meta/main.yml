@@ -23,14 +23,14 @@ galaxy_info:
     - prometheushdfsfsimagexporter
 dependencies:
   - role: rgibert.single_binary_service
-    version: 1.1.2
+    version: 1.2.1
     single_binary_service_checksum: "{{ prometheus_hdfs_fsimage_exporter_checksum }}"
     single_binary_service_dl_url: "{{ prometheus_hdfs_fsimage_exporter_dl_url }}"
     single_binary_service_group: "{{ prometheus_hdfs_fsimage_exporter_group }}"
     single_binary_service_name: prometheus_hdfs_fsimage_exporter
-    single_binary_service_start_cmd: "{{ single_binary_service_share_path }}/{{ single_binary_service_name }}.sh start"
-    single_binary_service_stop_cmd: "{{ single_binary_service_share_path }}/{{ single_binary_service_name }}.sh stop"
+    single_binary_service_start_cmd: "java -Xmx{{ prometheus_hdfs_fsimage_exporter_max_heap }} -dsa -server -XX:+UseG1GC -jar /usr/local/share/{{ single_binary_service_name }}-{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar {{ prometheus_hdfs_fsimage_exporter_ip }} {{ prometheus_hdfs_fsimage_exporter_port }} {{ prometheus_hdfs_fsimage_exporter_conf_path }}/{{ prometheus_hdfs_fsimage_exporter_conf_file }}"
+    single_binary_service_stop_cmd: "/usr/bin/ps auwwx | grep /usr/local/share/{{ single_binary_service_name }}-{{ single_binary_service_version }}/fsimage-exporter-{{ single_binary_service_version }}.jar | grep -v grep | awk '{print $2}' | xargs kill -9"
     single_binary_service_user: "{{ prometheus_hdfs_fsimage_exporter_user }}"
     single_binary_service_version: "{{ prometheus_hdfs_fsimage_exporter_version }}"
-    tag:
+    tags:
       - prometheus_hdfs_fsimage_exporter
