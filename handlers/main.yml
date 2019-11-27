@@ -1,5 +1,0 @@
----
-- name: restart service
-  systemd:
-    name: prometheus_hdfs_fsimage_exporter
-    state: restarted

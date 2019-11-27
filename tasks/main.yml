@@ -1,28 +1,26 @@
 ---
 - block:
 
-    - block:
+    - name: create config path
+      file:
+        state: directory
+        path: "{{ prometheus_hdfs_fsimage_exporter_conf_path }}"
+        owner: "{{ prometheus_hdfs_fsimage_exporter_user }}"
+        group: "{{ prometheus_hdfs_fsimage_exporter_group }}"
+        mode: "u=rwX,g=rX,o=rX"
 
-        - name: create config path
-          file:
-            state: directory
-            path: "{{ prometheus_hdfs_fsimage_exporter_conf_path }}"
-            owner: "{{ prometheus_hdfs_fsimage_exporter_user }}"
-            group: "{{ prometheus_hdfs_fsimage_exporter_group }}"
-            mode: "u=rwX,g=rX,o=rX"
+    - name: copy files
+      template:
+        src: "prometheus_hdfs_fsimage_exporter.yml.j2"
+        dest: "{{ prometheus_hdfs_fsimage_exporter_conf_path }}/{{ prometheus_hdfs_fsimage_exporter_conf_file }}"
+        owner: "{{ prometheus_hdfs_fsimage_exporter_user }}"
+        group: "{{ prometheus_hdfs_fsimage_exporter_group }}"
+        mode: "u=rw,g=r,o=r"
+      notify:
+        - restart service
 
-        - name: copy files
-          template:
-            src: "prometheus_hdfs_fsimage_exporter.yml.j2"
-            dest: "{{ prometheus_hdfs_fsimage_exporter_conf_path }}/{{ prometheus_hdfs_fsimage_exporter_conf_file }}"
-            owner: "{{ prometheus_hdfs_fsimage_exporter_user }}"
-            group: "{{ prometheus_hdfs_fsimage_exporter_group }}"
-            mode: "u=rw,g=r,o=r"
-          notify:
-            - restart service
-
-      become: true
-      become_user: root
+  become: true
+  become_user: root
 
   tags:
     - prometheus_hdfs_fsimage_exporter
